@@ -1,0 +1,8 @@
+- project_folder
+  - src
+    - index.html
+    - index.js
+    - styles.css
+    - data-business.js
+    - utils.js
+  - README.md (opcional)
