@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+</head>
+<body>
+    <h1>Iniciar sesión</h1>
+    <form id="loginForm" action="tu_servidor.com/autenticar" method="post">
+        <input type="text" id="nombreUsuario" name="nombreUsuario" placeholder="Nombre de usuario">
+        <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña">
+        <button type="submit">Iniciar sesión</button>
+        <form id="formularioCuenta">
+            <input type="text" id="numeroCuenta" placeholder="Número de cuenta">
+            <input type="number" id="saldoCuenta" placeholder="Saldo">
+            <button type="submit">Guardar</button>
+          </form>
+          
+    </form>
+    <div id="mensajeError"></div>
+
+    <script src="tu_archivo_de_js.js"></script>
+</body>
+</html>
