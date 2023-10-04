@@ -1,23 +1,18 @@
-const BASE_URL = "https://rickandmortyapi.com/api";
+// data-business.js
+const apiUrl = "https://rickandmortyapi.com/api/character";
 
-// Función para obtener los personajes de un episodio
-const fetchEpisodeCharacters = async (episode) => {
+async function fetchCharacters() {
   try {
-    const response = await fetch(episode.url);
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
     const data = await response.json();
-
-    // Utilizamos Promise.all para realizar las peticiones a todos los personajes del episodio
-    const charactersPromises = data.characters.map((characterUrl) => fetch(characterUrl));
-    const charactersResponses = await Promise.all(charactersPromises);
-    const charactersData = await Promise.all(charactersResponses.map((response) => response.json()));
-
-    return charactersData;
+    return data.results;
   } catch (error) {
-    console.error("Error fetching episode characters:", error);
+    console.error("Error fetching characters:", error);
     return [];
   }
-};
+}
 
-export { fetchEpisodeCharacters };
-
-
+export { fetchCharacters };

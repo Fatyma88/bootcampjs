@@ -1,29 +1,32 @@
-import { createCharacterRow, showCharacter } from "./utils.js";
-import { fetchEpisodeCharacters } from "./data-business.js";
+import "./styles.css";
+// index.js
+import { fetchCharacters } from "./data-business.js";
 
-// ... (código existente)
+document.addEventListener("DOMContentLoaded", async () => {
+  const rootElement = document.getElementById("root");
+  const characterDetailElement = document.getElementById("character-detail");
 
-const loadCharacters = async () => {
-  const episode = {
-    id: 10,
-    name: "Close Rick-counters of the Rick Kind",
-    air_date: "April 7, 2014",
-    episode: "S01E10",
-    characters: [
-      "https://rickandmortyapi.com/api/character/1",
-      "https://rickandmortyapi.com/api/character/2",
-      // ... (otros enlaces de personajes)
-      "https://rickandmortyapi.com/api/character/663"
-    ],
-    url: "https://rickandmortyapi.com/api/episode/10",
-    created: "2017-11-10T12:56:34.747Z"
+  // Obtén la lista de personajes
+  const characters = await fetchCharacters();
+
+  // Función para mostrar el detalle de un personaje
+  const showCharacterDetail = (character) => {
+    characterDetailElement.innerHTML = "";
+    // Usa la función "showCharacter" de utils.js para mostrar el detalle
+    // aquí puedes expandir la información del personaje si lo deseas.
+    showCharacter(character);
   };
 
-  const characters = await fetchEpisodeCharacters(episode);
-  renderCharactersList(characters);
-};
+  // Crea una fila para cada personaje y agrégala al DOM
+  characters.forEach((character) => {
+    const characterRow = createCharacterRow(character);
+    rootElement.appendChild(characterRow);
 
-// ... (resto del código)
-
+    // Agrega un listener para mostrar el detalle al hacer clic en el personaje
+    characterRow.addEventListener("click", () => {
+      showCharacterDetail(character);
+    });
+  });
+});
 
 
