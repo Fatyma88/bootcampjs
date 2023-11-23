@@ -1,0 +1,36 @@
+
+{
+    "saleTypes": [
+
+    ],
+    "equipments": {
+      "id1": "Terraza",
+      "id2": "Garaje",
+      "id3": "Piscina",
+      "id4": "Jardín",
+      "id5": "Aire acondicionado"
+    },
+    "provinces": [
+        
+    ],
+    "contact": {
+      "email": "pepito@ejemplo.com",
+      "phone": "123-456-7890",
+      "address": "Calle Echegaray, Málaga"
+    },
+    "properties": [
+      {
+        "id": 1,
+        "title": "Casa en Málaga",
+        "notes": "Oportunidad de casa en Málaga, en una zona céntrica y con una alta demanda",
+        "squaremetters": "140",
+        "rooms": "3",
+        "province": "Málaga",
+        "price": 300000,
+        "features": ["Piscina", "Jardín"],
+        "images": ["img1.jpg", "img2.jpg"]
+      }
+    
+    ]
+  }
+  
