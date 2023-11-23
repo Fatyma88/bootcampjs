@@ -117,62 +117,68 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"../node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
+})({"pages/movements/movements.helpers.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addMovementRows = void 0;
+var getMovementRow = function getMovementRow(movement) {
+  var transactionCell = document.createElement('td');
+  transactionCell.textContent = movement.transaction;
+  var realTransactionCell = document.createElement('td');
+  realTransactionCell.textContent = movement.realTransaction;
+  var descriptionCell = document.createElement('td');
+  descriptionCell.textContent = movement.description;
+  var amountCell = document.createElement('td');
+  amountCell.classList.add('align-right');
+  var amount = parseInt(movement.amount);
+  if (amount < 0) {
+    amountCell.classList.add('gasto');
   }
-  return bundleURL;
-}
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
+  amountCell.textContent = movement.amount;
+  var balanceCell = document.createElement('td');
+  balanceCell.classList.add('align-right');
+  var balance = parseInt(movement.balance);
+  if (balance < 0) {
+    balanceCell.classList.add('gasto');
   }
-  return '/';
+  balanceCell.textContent = movement.balance;
+  var row = document.createElement('tr');
+  row.appendChild(transactionCell);
+  row.appendChild(realTransactionCell);
+  row.appendChild(descriptionCell);
+  row.appendChild(amountCell);
+  row.appendChild(balanceCell);
+  return row;
+};
+var addMovementRows = exports.addMovementRows = function addMovementRows(movementList) {
+  movementList.forEach(function (movement) {
+    var row = getMovementRow(movement);
+    var listElement = document.getElementById('movement-list');
+    listElement.appendChild(row);
+  });
+};
+
+// Obtener los parámetros de la URL.
+var urlParams = new URLSearchParams(window.location.search);
+var cuentaId = urlParams.get('id');
+if (cuentaId) {
+  // Realizar una solicitud al servidor para obtener los movimientos de la cuenta.
+  fetch("/api/cuentas/".concat(cuentaId, "/movimientos"), {
+    method: 'GET'
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    // Manejar la respuesta del servidor (puede ser una lista de movimientos asociados a la cuenta).
+    console.log(data);
+    // Aquí puedes actualizar la interfaz de usuario para mostrar los movimientos.
+  }).catch(function (error) {
+    console.error('Error:', error);
+  });
 }
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-    cssTimeout = null;
-  }, 50);
-}
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel/src/builtins/bundle-url.js"}],"core/content/css/styles.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\img\\bg_login.jpg":[["bg_login.37db9dc0.jpg","core/content/img/bg_login.jpg"],"core/content/img/bg_login.jpg"],"./..\\img\\secure_site.svg":[["secure_site.8b0558d6.svg","core/content/img/secure_site.svg"],"core/content/img/secure_site.svg"],"./..\\img\\icon-user.svg":[["icon-user.4999b0f6.svg","core/content/img/icon-user.svg"],"core/content/img/icon-user.svg"],"_css_loader":"../node_modules/parcel/src/builtins/css-loader.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -341,5 +347,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/styles.2443d383.js.map
+},{}]},{},["../node_modules/parcel/src/builtins/hmr-runtime.js","pages/movements/movements.helpers.js"], null)
+//# sourceMappingURL=/movements.helpers.fbb9b8c8.js.map
