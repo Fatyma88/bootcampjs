@@ -6807,7 +6807,7 @@ var updateAccount = exports.updateAccount = function updateAccount(account) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.mapAccountFromViewModelToApi = exports.mapAccountFromApiToViewModel = void 0;
+exports.mapAccountVmToApi = exports.mapAccountFromViewModelToApi = exports.mapAccountFromApiToViewModel = exports.mapAccountApiToVm = void 0;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -6824,6 +6824,20 @@ var mapAccountFromViewModelToApi = exports.mapAccountFromViewModelToApi = functi
     name: account.alias
   });
 };
+var mapAccountVmToApi = exports.mapAccountVmToApi = function mapAccountVmToApi(account) {
+  return {
+    id: account.id,
+    type: account.type,
+    name: account.alias
+  };
+};
+var mapAccountApiToVm = exports.mapAccountApiToVm = function mapAccountApiToVm(account) {
+  return {
+    id: account.id,
+    type: account.type,
+    alias: account.name
+  };
+};
 },{}],"pages/account/account.js":[function(require,module,exports) {
 "use strict";
 
@@ -6838,6 +6852,11 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var account = {
+  id: '',
+  type: '',
+  alias: ''
+};
 var params = _router.history.getParams();
 var isEditMode = Boolean(params.id);
 if (isEditMode) {
@@ -6846,11 +6865,6 @@ if (isEditMode) {
     (0, _helpers.onSetValues)(account);
   });
 }
-var account = {
-  id: '',
-  type: '',
-  alias: ''
-};
 (0, _helpers.onUpdateField)('type', function (event) {
   var value = event.target.value;
   account = _objectSpread(_objectSpread({}, account), {}, {
@@ -6874,15 +6888,19 @@ var onSave = function onSave() {
   return isEditMode ? (0, _account2.updateAccount)(apiAccount) : (0, _account2.insertAccount)(apiAccount);
 };
 (0, _helpers.onSubmitForm)('save-button', function () {
+  console.log({
+    account: account
+  });
   _account.formValidation.validateForm(account).then(function (result) {
     (0, _helpers.onSetFormErrors)(result);
     if (result.succeeded) {
-      onSave().then(function (apiAccount) {
+      onSave().then(function () {
         _router.history.back();
       });
     }
   });
 });
+console.log('account page');
 },{"../../common/helpers":"common/helpers/index.js","./account.validations":"pages/account/account.validations.js","../../core/router":"core/router/index.js","./account.api":"pages/account/account.api.js","./account.mappers":"pages/account/account.mappers.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -6908,7 +6926,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52075" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58637" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

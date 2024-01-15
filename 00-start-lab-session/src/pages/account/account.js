@@ -8,10 +8,13 @@ import {
 import { formValidation } from './account.validations';
 import { history } from '../../core/router';
 import { getAccount, updateAccount, insertAccount } from './account.api';
-import {
-  mapAccountFromApiToViewModel,
-  mapAccountFromViewModelToApi,
-} from './account.mappers';
+import { mapAccountFromApiToViewModel, mapAccountFromViewModelToApi } from './account.mappers';
+
+let account = {
+  id: '',
+  type: '',
+  alias: '',
+  };
 
 const params = history.getParams();
 const isEditMode = Boolean(params.id);
@@ -22,12 +25,6 @@ if (isEditMode) {
     onSetValues(account);
   });
 }
-
-let account = {
-  id: '',
-  type: '',
-  alias: '',
-};
 
 onUpdateField('type', event => {
   const value = event.target.value;
@@ -59,10 +56,11 @@ const onSave = () => {
 };
 
 onSubmitForm('save-button', () => {
+  console.log({ account });
   formValidation.validateForm(account).then(result => {
     onSetFormErrors(result);
     if (result.succeeded) {
-      onSave().then(apiAccount => {
+        onSave().then(() => {
         history.back();
       });
     }
@@ -70,5 +68,7 @@ onSubmitForm('save-button', () => {
 });
 
 
+
+console.log('account page');
 
 

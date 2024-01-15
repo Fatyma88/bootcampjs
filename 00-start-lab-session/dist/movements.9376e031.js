@@ -201,7 +201,7 @@ var _movementsMappers = require("./movements.mappers.js");
 
 var initMovementsPage = function initMovementsPage() {
   // Obtener el ID de la cuenta (puedes obtenerlo de la URL, de un token, etc.)
-  var accountId = 'cuenta123'; // Reemplaza con la lógica real para obtener el ID de la cuenta
+  var accountId = '1'; // Reemplaza '1' con el ID de la cuenta que desees obtener
 
   // Obtener movimientos desde la API y mapearlos a la página
   (0, _movementsApi.getMovements)(accountId).then(function (movementsData) {
@@ -239,7 +239,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52075" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58637" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

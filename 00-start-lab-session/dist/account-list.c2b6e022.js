@@ -1858,8 +1858,9 @@ var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var url = "".concat("http://localhost:3000/api", "/account-list");
 var getAccountList = exports.getAccountList = function getAccountList() {
-  return _axios.default.get(url).then(function (response) {
-    return response.data;
+  return _axios.default.get(url).then(function (_ref) {
+    var data = _ref.data;
+    return data;
   });
 };
 },{"axios":"../node_modules/axios/index.js"}],"core/router/routes.js":[function(require,module,exports) {
@@ -4260,6 +4261,9 @@ var _accountList2 = require("./account-list.helpers");
 var _accountList3 = require("./account-list.mappers");
 var _helpers = require("../../common/helpers");
 var _router = require("../../core/router");
+console.log('account-list page');
+
+// Llamar a getAccountList una sola vez y luego realizar operaciones en los datos.
 (0, _accountList.getAccountList)().then(function (accountList) {
   var viewModelAccountList = (0, _accountList3.mapAccountListFromApiToViewModel)(accountList);
   (0, _accountList2.addAccountRows)(viewModelAccountList);
@@ -4269,35 +4273,24 @@ var _router = require("../../core/router");
       _router.history.push(route);
     });
   });
-});
 
-// Realizar una solicitud GET al servidor para obtener las cuentas disponibles.
-fetch('/api/accounts').then(function (response) {
-  return response.json();
-}).then(function (data) {
-  // Data contiene la información de las cuentas disponibles.
-  console.log(data);
-  // Puedes mostrar esta información en la página o realizar acciones adicionales con ella.
-}).catch(function (error) {
-  console.error('Error:', error);
-});
+  // Supongamos que tienes una lista de cuentas y cada cuenta tiene un identificador único.
+  var accountsList = document.querySelectorAll('.account-item'); // Selecciona los elementos de cuenta.
 
-// Supongamos que tienes una lista de cuentas y cada cuenta tiene un identificador único.
-var accountsList = document.querySelectorAll('.account-item'); // Selecciona los elementos de cuenta.
-
-// Agrega un evento de clic a cada cuenta.
-accountsList.forEach(function (account) {
-  account.addEventListener('click', function () {
-    var accountId = account.dataset.id; // Supongamos que usas el atributo "data-id" para almacenar el ID de la cuenta.
-    // Redirige al usuario a la página de transferencias o movimientos de la cuenta seleccionada.
-    window.location.href = "/transactions?account=".concat(accountId);
+  // Agrega un evento de clic a cada cuenta.
+  accountsList.forEach(function (account) {
+    account.addEventListener('click', function () {
+      var accountId = account.dataset.id; // Supongamos que usas el atributo "data-id" para almacenar el ID de la cuenta.
+      // Redirige al usuario a la página de transferencias o movimientos de la cuenta seleccionada.
+      window.location.href = "/transactions?account=".concat(accountId);
+    });
   });
-});
-var createAccountButton = document.getElementById('create-account-button'); // Supongamos que tienes un botón o enlace con el ID "create-account-button".
+  var createAccountButton = document.getElementById('create-account-button'); // Supongamos que tienes un botón o enlace con el ID "create-account-button".
 
-createAccountButton.addEventListener('click', function () {
-  // Redirige al usuario a la página de creación de una nueva cuenta.
-  window.location.href = '/create-account';
+  createAccountButton.addEventListener('click', function () {
+    // Redirige al usuario a la página de creación de una nueva cuenta.
+    window.location.href = '/create-account';
+  });
 });
 },{"./account-list.api":"pages/account-list/account-list.api.js","./account-list.helpers":"pages/account-list/account-list.helpers.js","./account-list.mappers":"pages/account-list/account-list.mappers.js","../../common/helpers":"common/helpers/index.js","../../core/router":"core/router/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -4324,7 +4317,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52075" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58637" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

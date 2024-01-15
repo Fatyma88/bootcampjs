@@ -1966,14 +1966,10 @@ exports.isValidLogin = void 0;
 var _axios = _interopRequireDefault(require("axios"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 var url = "".concat("http://localhost:3000/api", "/login");
-
-// get
-// post
-// put
-// delete
 var isValidLogin = exports.isValidLogin = function isValidLogin(login) {
-  return _axios.default.post(url, login).then(function (response) {
-    return response.data;
+  return _axios.default.post(url, login).then(function (_ref) {
+    var data = _ref.data;
+    return data;
   });
 };
 },{"axios":"../node_modules/axios/index.js"}],"../node_modules/@lemoncode/fonk/dist/@lemoncode/fonk.esm.js":[function(require,module,exports) {
@@ -6824,7 +6820,6 @@ var login = {
 };
 (0, _helpers.onUpdateField)('user', function (event) {
   var value = event.target.value;
-  // login.user = value;
   login = _objectSpread(_objectSpread({}, login), {}, {
     user: value
   });
@@ -6834,7 +6829,6 @@ var login = {
 });
 (0, _helpers.onUpdateField)('password', function (event) {
   var value = event.target.value;
-  // login.password = value;
   login = _objectSpread(_objectSpread({}, login), {}, {
     password: value
   });
@@ -6854,37 +6848,13 @@ var onNavigate = function onNavigate(isValid) {
     (0, _helpers.onSetFormErrors)(result);
     if (result.succeeded) {
       (0, _login.isValidLogin)(login).then(function (isValid) {
+        console.log({
+          isValid: isValid
+        });
         onNavigate(isValid);
       });
     }
   });
-});
-var user = document.getElementById('user').value;
-var password = document.getElementById('password').value;
-
-// Realizar la solicitud POST al servidor
-fetch('/api/login', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    user: user,
-    password: password
-  })
-}).then(function (response) {
-  return response.json();
-}).then(function (data) {
-  if (data.success) {
-    // Redirigir a la página de inicio de sesión exitosa.
-    window.location.href = '/dashboard';
-  } else {
-    // Mostrar un mensaje de error en la página de inicio de sesión.
-    document.getElementById('user-error').textContent = 'Credenciales incorrectas.';
-    document.getElementById('password-error').textContent = 'Credenciales incorrectas.';
-  }
-}).catch(function (error) {
-  console.error('Error:', error);
 });
 console.log('login page');
 },{"../../common/helpers":"common/helpers/index.js","./login.api":"pages/login/login.api.js","./login.validations":"pages/login/login.validations.js","../../core/router":"core/router/index.js"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -6912,7 +6882,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52075" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58637" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
